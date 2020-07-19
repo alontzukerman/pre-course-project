@@ -1,6 +1,8 @@
 const viewSectionElement = document.querySelector('#view-section');
 const listElement = document.createElement('ul');
 viewSectionElement.appendChild(listElement);
+const counterSpan = document.querySelector('#counter');
+const todoArray = [];
 
 const addButtonElement = document.querySelector('#addButton'); // call button element
 addButtonElement.addEventListener('click', () => { // add button click function event
@@ -27,10 +29,25 @@ function createItemContainer (prio,data){
     priorityDiv.setAttribute('class','todoPriority');
     createdDiv.setAttribute('class','todoCreatedAt');
     textDiv.setAttribute('class','todoText');
+    
+    const containerObj = {
+        priority: prio,
+        created: new Date(),
+        text: data
+    }
+    todoArray.push(containerObj);
+    counterSpan.innerHTML = todoArray.length+' TODOs';
 
-    priorityDiv.innerHTML = prio;
-    createdDiv.innerHTML = new Date();
-    textDiv.innerHTML = data;
+    priorityDiv.innerHTML = containerObj.priority;
+    createdDiv.innerHTML = containerObj.created;
+    textDiv.innerHTML = containerObj.text;
 }
+
+const sortButtonElement = document.querySelector('#sortButton');
+sortButtonElement.addEventListener('click', () => {
+    if (!(containerObj.length === 0)){
+        
+    }
+});
 
 
