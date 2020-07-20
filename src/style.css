@@ -1,6 +1,27 @@
+#counter {
+    font-weight: bolder;
+}
+#control-section {
+    margin-top: 10px;
+}
+
+#view-section {
+    margin-top: 10px;
+    min-height: 20px;
+}
+.completedTodo {
+    opacity: 30%;
+}
+.todoContainer {
+    cursor: move;
+    user-select: none;
+}
+.todoContainer:hover {
+    background-color: rgb(233, 233, 233);
+}
 .todoPriority {
     display: inline-block;
-    width: 10%;
+    width: 5%;
 }
 
 .todoCreatedAt {
@@ -10,5 +31,8 @@
 
 .todoText {
     display: inline-block;
-    width: 60%;
+    width: 65%;
+}
+#todoInfo {
+    margin-top: 10px;
 }
