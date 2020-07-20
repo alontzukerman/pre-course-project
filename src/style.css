@@ -1,3 +1,4 @@
+
 #counter {
     font-weight: bolder;
 }
@@ -9,6 +10,7 @@
     margin-top: 10px;
     min-height: 20px;
 }
+
 .completedTodo {
     opacity: 30%;
 }
@@ -19,9 +21,14 @@
 .todoContainer:hover {
     background-color: rgb(233, 233, 233);
 }
+#deleteButton {
+    display: inline-block;
+    width: 25px;
+}
 .todoPriority {
     display: inline-block;
     width: 5%;
+    margin-left: 10px;
 }
 
 .todoCreatedAt {
@@ -31,7 +38,7 @@
 
 .todoText {
     display: inline-block;
-    width: 65%;
+    width: 50%;
 }
 #todoInfo {
     margin-top: 10px;

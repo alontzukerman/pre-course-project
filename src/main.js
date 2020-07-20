@@ -1,10 +1,10 @@
 const viewSectionElement = document.querySelector('#view-section');
-// const listElement = document.createElement('ul');
-// viewSectionElement.appendChild(listElement);
 const counterSpan = document.querySelector('#counter');
 const todoArray = [];
 const todoInfoElement = document.querySelector('#todoInfo');
+todoInfoElement.innerHTML = 'NO TODOs TO DO';
 var completedTodoCounter = 0;
+var idIndexOfContainer = 0;
 
 const addButtonElement = document.querySelector('#addButton'); // call button element
 addButtonElement.addEventListener('click', () => { // add button click function event
@@ -12,35 +12,43 @@ addButtonElement.addEventListener('click', () => { // add button click function 
     const valueInput = inputElement.value;
     if (valueInput){
         inputElement.value = '';
+        inputElement.focus();
         const priorityElement = document.querySelector('#prioritySelector');
         const valuePriority = priorityElement.value;
 
         createItemContainer(valuePriority,valueInput);
     }
 });
-
 function createItemContainer (prio,data){
     const containerDiv = document.createElement("div");
+    const deleteButton = document.createElement("button");
     const priorityDiv = document.createElement("div");
     const createdDiv = document.createElement("div");
     const textDiv = document.createElement("div");
+    containerDiv.appendChild(deleteButton);
     containerDiv.appendChild(priorityDiv);
     containerDiv.appendChild(createdDiv);
     containerDiv.appendChild(textDiv);
     viewSectionElement.appendChild(containerDiv);
     containerDiv.setAttribute('class','todoContainer');
+    deleteButton.setAttribute('id','deleteButton');
+    deleteButton.innerHTML = 'X';
     priorityDiv.setAttribute('class','todoPriority');
     createdDiv.setAttribute('class','todoCreatedAt');
     textDiv.setAttribute('class','todoText');
     
     let date = new Date().getFullYear()+'-'+new Date().getMonth()+'-'+new Date().getDay();
     let time = new Date().getHours()+':'+new Date().getMinutes()+':'+new Date().getSeconds();       
+
     const containerObj = {
+        id: idIndexOfContainer,
         priority: prio,
         created: date+' '+time,
         text: data
     }
     todoArray.push(containerObj);
+    containerDiv.setAttribute('id',idIndexOfContainer);
+    idIndexOfContainer++;
     counterSpan.innerHTML = todoArray.length;
 
     priorityDiv.innerHTML = containerObj.priority;
@@ -53,8 +61,10 @@ function createItemContainer (prio,data){
         if (containerDiv.classList.length === 1){
             containerDiv.setAttribute('class','todoContainer completedTodo');
             completedTodoCounter++;
-            if (completedTodoCounter === todoArray.length)
-                todoInfoElement.innerHTML = 'TODO LIST COMPLETED.'
+            if (todoArray.length === 0)
+                todoInfoElement.innerHTML = 'NO TODOs TO DO';
+            else if (completedTodoCounter === todoArray.length)
+                todoInfoElement.innerHTML = '<strong>TODO LIST COMPLETED.</strong>'
             else
                 todoInfoElement.innerHTML = completedTodoCounter +'/'+ todoArray.length +' COMPLETED.'
 
@@ -65,8 +75,21 @@ function createItemContainer (prio,data){
             todoInfoElement.innerHTML = completedTodoCounter +'/'+ todoArray.length +' COMPLETED.'
         }
     });
-    
+
     containerDiv.addEventListener('mousedown',mouseDownHandler);
+    deleteButton.addEventListener('click', () => {
+        for (let i=0 ; i<todoArray.length ; i++){
+            if (todoArray[i].id == deleteButton.parentElement.id){
+                todoArray.splice(i,1);
+                counterSpan.innerHTML = todoArray.length;
+                if (containerDiv.classList.length === 1) 
+                    completedTodoCounter--;
+                
+                break;
+            }
+        }
+        deleteButton.parentElement.remove();
+    });
 }
 
 const sortButtonElement = document.querySelector('#sortButton');
@@ -78,7 +101,7 @@ sortButtonElement.addEventListener('click', () => {
         for (let i=1 ; i<viewSectionElement.childElementCount ; i++){
             let bool = true;
             for (let j=0 ; j<viewSectionElement.childElementCount && bool ; j++){
-                if (viewSectionElement.children[i].children[0].innerHTML>viewSectionElement.children[j].children[0].innerHTML){
+                if (viewSectionElement.children[i].children[1].innerHTML>viewSectionElement.children[j].children[1].innerHTML){
                     viewSectionElement.children[j].before(viewSectionElement.children[i]);
                     bool = false;
                 }
@@ -140,9 +163,11 @@ const mouseUpHandler = function() {
 
     document.removeEventListener('mousemove',mouseMoveHandler);
     document.removeEventListener('mouseup',mouseUpHandler);
-
-    placeholder && placeholder.parentNode.removeChild(placeholder);
-    isDraggingStarted = false;
+    
+    if (isDraggingStarted){
+        placeholder && placeholder.parentNode.removeChild(placeholder);
+        isDraggingStarted = false;
+    }
 }
 
 const isAbove = function(a,b) {
@@ -159,5 +184,3 @@ const swap = function(a,b) {
     b.parentNode.insertBefore(a,b);
     parentA.insertBefore(b,siblingA);
 }
-
-
