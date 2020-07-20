@@ -1,0 +1,14 @@
+.todoPriority {
+    display: inline-block;
+    width: 10%;
+}
+
+.todoCreatedAt {
+    display: inline-block;
+    width: 30%;
+}
+
+.todoText {
+    display: inline-block;
+    width: 60%;
+}

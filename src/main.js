@@ -9,7 +9,7 @@ addButtonElement.addEventListener('click', () => { // add button click function 
     const inputElement = document.querySelector('#textInput');
     const valueInput = inputElement.value;
     inputElement.value = '';
-    const priorityElement = document.querySelector('#prioritySeclector');
+    const priorityElement = document.querySelector('#prioritySelector');
     const valuePriority = priorityElement.value;
 
     createItemContainer(valuePriority,valueInput);
@@ -30,13 +30,15 @@ function createItemContainer (prio,data){
     createdDiv.setAttribute('class','todoCreatedAt');
     textDiv.setAttribute('class','todoText');
     
+    let date = new Date().getFullYear()+'-'+new Date().getMonth()+'-'+new Date().getDay();
+    let time = new Date().getHours()+':'+new Date().getMinutes()+':'+new Date().getSeconds();       
     const containerObj = {
         priority: prio,
-        created: new Date(),
+        created: date+' '+time,
         text: data
     }
     todoArray.push(containerObj);
-    counterSpan.innerHTML = todoArray.length+' TODOs';
+    counterSpan.innerHTML = todoArray.length;
 
     priorityDiv.innerHTML = containerObj.priority;
     createdDiv.innerHTML = containerObj.created;
