@@ -45,8 +45,19 @@ function createItemContainer (prio,data){
 
 const sortButtonElement = document.querySelector('#sortButton');
 sortButtonElement.addEventListener('click', () => {
-    if (!(containerObj.length === 0)){
+    if (!(todoArray.length === 0)){
+        todoArray.sort((a,b) => b.priority - a.priority);
         
+
+        for (let i=1 ; i<listElement.childElementCount ; i++){
+            let bool = true;
+            for (let j=0 ; j<listElement.childElementCount && bool ; j++){
+                if (listElement.children[i].children[0].innerHTML>listElement.children[j].children[0].innerHTML){
+                    listElement.children[j].before(listElement.children[i]);
+                    bool = false;
+                }
+            }
+        }
     }
 });
 
