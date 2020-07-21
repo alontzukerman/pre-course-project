@@ -16,11 +16,11 @@ addButtonElement.addEventListener('click', addTodoList); // add button click fun
 function addTodoList() {
     const inputElement = document.querySelector('#textInput');
     const valueInput = inputElement.value;
-    if (valueInput){
+    const priorityElement = document.querySelector('#prioritySelector');
+    const valuePriority = priorityElement.value;
+    if (valueInput && valuePriority){
         inputElement.value = '';
         inputElement.focus();
-        const priorityElement = document.querySelector('#prioritySelector');
-        const valuePriority = priorityElement.value;
 
         createItemContainer(valuePriority,valueInput);
     }
