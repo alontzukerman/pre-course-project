@@ -10,7 +10,6 @@
     margin-top: 10px;
     min-height: 20px;
 }
-
 .completedTodo {
     opacity: 30%;
 }
@@ -38,7 +37,7 @@
 
 .todoText {
     display: inline-block;
-    width: 50%;
+    width: 40%;
 }
 #todoInfo {
     margin-top: 10px;

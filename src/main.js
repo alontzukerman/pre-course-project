@@ -6,8 +6,14 @@ todoInfoElement.innerHTML = 'NO TODOs TO DO';
 var completedTodoCounter = 0;
 var idIndexOfContainer = 0;
 
-const addButtonElement = document.querySelector('#addButton'); // call button element
-addButtonElement.addEventListener('click', () => { // add button click function event
+document.addEventListener('keydown', function(e) {
+    if (e.keyCode === 13)
+        addTodoList();
+});
+const addButtonElement = document.querySelector('#addButton');
+addButtonElement.addEventListener('click', addTodoList); // add button click function event
+
+function addTodoList() {
     const inputElement = document.querySelector('#textInput');
     const valueInput = inputElement.value;
     if (valueInput){
@@ -18,8 +24,8 @@ addButtonElement.addEventListener('click', () => { // add button click function 
 
         createItemContainer(valuePriority,valueInput);
     }
-});
-function createItemContainer (prio,data){
+}
+function createItemContainer (prio,data){ // create container in view section
     const containerDiv = document.createElement("div");
     const deleteButton = document.createElement("button");
     const priorityDiv = document.createElement("div");
@@ -37,13 +43,11 @@ function createItemContainer (prio,data){
     createdDiv.setAttribute('class','todoCreatedAt');
     textDiv.setAttribute('class','todoText');
     
-    let date = new Date().getFullYear()+'-'+new Date().getMonth()+'-'+new Date().getDay();
-    let time = new Date().getHours()+':'+new Date().getMinutes()+':'+new Date().getSeconds();       
-
+    const dateTime = getNowDateAndTime();
     const containerObj = {
         id: idIndexOfContainer,
         priority: prio,
-        created: date+' '+time,
+        created: dateTime,
         text: data
     }
     todoArray.push(containerObj);
@@ -57,13 +61,13 @@ function createItemContainer (prio,data){
 
     todoInfoElement.innerHTML = completedTodoCounter +'/'+ todoArray.length +' COMPLETED.'
 
-    containerDiv.addEventListener('click',() => {
+    containerDiv.addEventListener('click',() => { // click on line function event
         if (containerDiv.classList.length === 1){
             containerDiv.setAttribute('class','todoContainer completedTodo');
             completedTodoCounter++;
             if (todoArray.length === 0)
                 todoInfoElement.innerHTML = 'NO TODOs TO DO';
-            else if (completedTodoCounter === todoArray.length)
+            else if (completedTodoCounter == todoArray.length)
                 todoInfoElement.innerHTML = '<strong>TODO LIST COMPLETED.</strong>'
             else
                 todoInfoElement.innerHTML = completedTodoCounter +'/'+ todoArray.length +' COMPLETED.'
@@ -111,7 +115,7 @@ sortButtonElement.addEventListener('click', () => {
 });
 
 let draggingElement , x = 0 , y = 0;
-let placeholder , isDraggingStarted = false;
+let placeholder , wasDraggedOver = false , isDraggingStarted = false;
 
 const mouseDownHandler = function(e) {
     draggingElement = e.target.parentNode;
@@ -183,4 +187,26 @@ const swap = function(a,b) {
 
     b.parentNode.insertBefore(a,b);
     parentA.insertBefore(b,siblingA);
+}
+function getNowDateAndTime() {
+    let today = new Date();
+    let fullYear, month, day, hours, minutes, seconds;
+    fullYear = today.getFullYear();
+    month = today.getMonth()+1;
+    day = today.getDate();
+    hours = today.getHours();
+    minutes = today.getMinutes();
+    seconds = today.getSeconds();
+    if (month < 10)
+        month = '0'+month;
+    if (day < 10)
+        day = '0'+day;
+    if (hours < 10)
+        hours = '0'+hours;
+    if (minutes < 10)
+        minutes = '0'+minutes;
+    if (seconds < 10)
+        seconds = '0'+seconds;
+    console.log(fullYear);
+    return (fullYear+'-'+month+'-'+day+' '+hours+':'+minutes+':'+seconds);
 }
