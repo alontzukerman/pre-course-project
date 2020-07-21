@@ -27,6 +27,7 @@ padding: 25px;
 margin: auto;
 background-color: #333;
 border-radius: 15px;
+box-shadow: 0 0 10px 5px #cecece;
 }
 
 h1{
@@ -75,6 +76,7 @@ h1{
     margin-right: 10px;
     padding: 5px;
     background-color: #ffffff00;
+    color: #ffffff;
     border-style: none;
     border-bottom: 1px solid #fff;
 }
