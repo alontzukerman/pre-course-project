@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300;0,400;1,700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div class="main_container">
+        <h1 id="head">To Do List</h1>
+        <div class="divider"></div>
+        <span id="counter">0</span>
+        <span>To Do's</span>
+        <button id="sortButton">sort ↓</button>
+        <div id="control-section">
+            <input id="textInput" placeholder="Add something to the list">
+            <select id="prioritySelector">
+                <option value="" selected>Priority</option>
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+            </select>   
+            <button id="addButton"> + </button>
+        </div>
+        <div id="view-section">
+        </div>
+        <div id="todoInfo"></div>
+    </div>
+    
+<script src="main.js"></script>
+</body>
+</html>
